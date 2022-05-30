@@ -1,70 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import "./Todo.css";
 import { AddForm } from "./AddForm";
 import { Delete } from "./Delete";
 import { Edit } from "./Edit";
+import { TodoContext } from "../App";
 
 export const Todos = () => {
-  //---------- array to store multiple Todo tasks
-  const [TodosArray, setTodosArray] = useState([]);
-  //-----------grabing the input value
-  const [inputVal, setinputVal] = useState("");
+  const data = useContext(TodoContext);
   //----------fxn to get the value of input
   const handleinput = (e) => {
-    setinputVal(e.target.value);
-  };
-
-  const btnStyles = {
-    border: "none",
-    padding: "5px",
-    margin: "3px",
-    color: "white",
-    borderRadius: "3px",
+    data.setinputVal(e.target.value);
   };
   return (
     <div className="Todo">
-      <AddForm
-        inputVal={inputVal}
-        setinputVal={setinputVal}
-        TodosArray={TodosArray}
-        setTodosArray={setTodosArray}
-        handleinput={handleinput}
-      />
-      <div style={{ margin: "auto", marginTop: "50px", width: "400px" }}>
-        {TodosArray.map((todo) => {
+      <AddForm handleinput={handleinput} />
+      <ul>
+        {data.TodosArray.map((todo) => {
           return (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                listStyle: "none",
-                width: "100%",
-                borderBottom: "1px solid grey",
-                margin: "5px",
-                padding: "3px",
-              }}
-              key={todo.key}
-            >
+            <div className="todos" key={todo.key}>
               <li>{todo.li}</li>
               <div>
-                <Edit
-                  todo={todo}
-                  btnStyles={btnStyles}
-                  TodosArray={TodosArray}
-                  setTodosArray={setTodosArray}
-                  setinputVal={setinputVal}
-                />
-                <Delete
-                  todo={todo}
-                  btnStyles={btnStyles}
-                  TodosArray={TodosArray}
-                  setTodosArray={setTodosArray}
-                />
+                <Edit todo={todo} />
+                <Delete todo={todo} />
               </div>
             </div>
           );
         })}
-      </div>
+      </ul>
     </div>
   );
 };

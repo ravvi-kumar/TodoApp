@@ -1,21 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TodoContext } from "../App";
 
-export const Delete = ({ todo, btnStyles, TodosArray, setTodosArray }) => {
+export const Delete = ({ todo }) => {
+  const data = useContext(TodoContext);
   //--------delete functionality
   const handledelete = (e) => {
     // console.log(e.currentTarget.id);
     const id = e.currentTarget.id;
 
     //filtered the todoArray
-    const deleted = TodosArray.filter((todos) => todos.key !== id);
-    setTodosArray(deleted);
+    const deleted = data.TodosArray.filter((todos) => todos.key !== id);
+    data.setTodosArray(deleted);
   };
   return (
-    <button
-      style={{ ...btnStyles, backgroundColor: "crimson" }}
-      id={todo.key}
-      onClick={handledelete}
-    >
+    <button className="btns del" id={todo.key} onClick={handledelete}>
       delete
     </button>
   );

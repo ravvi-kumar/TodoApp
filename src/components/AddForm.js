@@ -1,34 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TodoContext } from "../App";
 
-export const AddForm = ({
-  inputVal,
-  setinputVal,
-  TodosArray,
-  setTodosArray,
-  handleinput,
-}) => {
+export const AddForm = ({ handleinput }) => {
+  const data = useContext(TodoContext);
   //---------fxn to create a todo on button click or form submit
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     //-------created an object to store the value and key
     const obj = {
-      li: inputVal,
+      li: data.inputVal,
       key: Math.random().toLocaleString(),
     };
 
     //-----spreding the previous todos and adding new todo
-    setTodosArray([...TodosArray, obj]);
+    data.setTodosArray([...data.TodosArray, obj]);
 
     //------clearing the input field
-    setinputVal("");
+    data.setinputVal("");
   };
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input type="text" value={inputVal} onChange={handleinput} />
-        <button type="submit">Add</button>
+        <input
+          className="inputField"
+          type="text"
+          value={data.inputVal}
+          onChange={handleinput}
+        />
+        <button className="btns add" type="submit">
+          Add
+        </button>
       </form>
     </div>
   );
