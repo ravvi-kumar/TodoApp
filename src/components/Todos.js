@@ -52,7 +52,7 @@ export const Todos = () => {
         <input type="text" value={inputVal} onChange={handleinput} />
         <button type="submit">Add</button>
       </form>
-      <ul>
+      <ul style={{ margin: "auto", marginTop: "50px", width: "400px" }}>
         {TodosArray.map((todo) => {
           return (
             <div
@@ -61,7 +61,7 @@ export const Todos = () => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 listStyle: "none",
-                width: "300px",
+                width: "100%",
                 borderBottom: "1px solid grey",
                 margin: "5px",
                 padding: "3px",
