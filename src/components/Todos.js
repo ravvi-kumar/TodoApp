@@ -1,35 +1,42 @@
 import React, { useState } from "react";
 
 export const Todos = () => {
-  // const [TodosArray, setTodosArray] = useState({
-  //   li: [],
-  //   key: "Math.random().toLocaleString()",
-  // });
+  //---------- array to store multiple Todo tasks
   const [TodosArray, setTodosArray] = useState([]);
+  //-----------grabing the input value
   const [inputVal, setinputVal] = useState("");
+  //----------fxn to get the value of input
   const handleinput = (e) => {
     setinputVal(e.target.value);
   };
+
+  //---------fxn to create a todo on button click or form submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const newTodo = [...TodosArray.li, inputVal];
 
+    //-------created an object to store the value and key
     const obj = {
       li: inputVal,
       key: Math.random().toLocaleString(),
     };
 
-    // setTodosArray({ ...TodosArray, li: newTodo });
+    //-----spreding the previous todos and adding new todo
     setTodosArray([...TodosArray, obj]);
+
+    //------clearing the input field
     setinputVal("");
   };
+
+  //--------delete functionality
   const handledelete = (e) => {
     // console.log(e.currentTarget.id);
     const id = e.currentTarget.id;
 
+    //filtered the todoArray
     const deleted = TodosArray.filter((todos) => todos.key !== id);
     setTodosArray(deleted);
   };
+  //-------edit functionality
   const handleEdit = (e) => {
     const id = e.currentTarget.id;
     const filtered = TodosArray.filter((todos) => todos.key === id);
